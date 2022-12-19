@@ -17,17 +17,23 @@ pipeline {
         }
         stage('build jar') {
             steps {
-                groovy.buildJar()
+                script {
+                    groovy.buildJar()
+                }
             }
         }
         stage('build image') {
             steps {
-                groovy.buildImage()
+                script {
+                    groovy.buildImage()
+                }
                 }    
           }
         stage('deploy') {
             steps {
-                groovy.deployApp()
+                script {
+                    groovy.deployApp()
+                }
             }
         }
     }
