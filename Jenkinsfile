@@ -24,7 +24,6 @@ pipeline {
             steps {
                 groovy.buildImage()
                 }    
-            }
           }
         stage('deploy') {
             steps {
