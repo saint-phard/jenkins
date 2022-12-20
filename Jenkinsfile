@@ -1,3 +1,4 @@
+@Library('jenkins-shared-library')
 def groovy
 
 pipeline {
@@ -18,14 +19,14 @@ pipeline {
         stage('build jar') {
             steps {
                 script {
-                    groovy.buildJar()
+                    buildJar()
                 }
             }
         }
         stage('build image') {
             steps {
                 script {
-                    groovy.buildImage()
+                    buildImage()
                 }
                 }    
           }
