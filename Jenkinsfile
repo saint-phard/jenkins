@@ -26,7 +26,7 @@ pipeline {
         stage('build image') {
             steps {
                 script {
-                    buildImage()
+                    buildImage 'phard/the-app:maven-2.0'
                 }
                 }    
           }
