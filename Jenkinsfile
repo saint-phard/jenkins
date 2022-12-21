@@ -1,4 +1,9 @@
-@Library('jenkins-shared-library')
+library identifier: 'jenkins-shared-library@main', retriever: modernSCM(
+    [$class: 'GitSCMSource',
+     remote: 'https://github.com/saint-phard/jenkins-shared-library.git',
+     credentialsId: 'my-github-credentials'
+    ]
+)
 def groovy
 
 pipeline {
