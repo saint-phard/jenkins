@@ -30,12 +30,14 @@ pipeline {
                 }
             }
         }
-        stage('build image') {
+        stage('build and push image') {
             steps {
                 script {
                     buildImage 'phard/the-app:maven-2.0'
+                    dockerLogin()
+                    dockerPush 'phard/the-app:maven-2.0'
                 }
-                }    
+            }    
           }
         stage('deploy') {
             steps {
