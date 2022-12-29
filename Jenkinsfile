@@ -15,6 +15,19 @@ pipeline {
                 }
             }
         }
+        stage('increment app version') {
+            steps {
+                script {
+                    echo 'incrementing maven app version'
+                    sh 'mvn build-helper:parse-version versions:set \
+                        DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
+                        versions:commit'
+                    def matchAppVersion = readFile('pom.xml') =~ '<version>(.+)</version>'
+                    def appVersion = matchAppVersion [0][1]
+                    env.IMAGE_NAME = "$appVersion-$BUILD_NUMBER"
+                }
+            }
+        }
         stage('build jar') {
             steps {
                 script {
