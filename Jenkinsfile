@@ -23,6 +23,19 @@ pipeline {
                 }
             }
         }
+        stage('increment app version') {
+            steps {
+                script {
+                    echo 'incrementing maven app version'
+                    sh 'mvn build-helper:parse-version versions:set \
+                        DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
+                        versions:commit'
+                    def matchAppVersion = readFile('pom.xml') =~ '<version>(.+)</version>'
+                    def appVersion = matchAppVersion [0][1]
+                    env.IMAGE_NAME = "$appVersion-$BUILD_NUMBER"
+                }
+            }
+        }
         stage('build jar') {
             steps {
                 script {
@@ -33,9 +46,9 @@ pipeline {
         stage('build and push image') {
             steps {
                 script {
-                    buildImage 'phard/the-app:maven-2.0'
+                    buildImage "phard/the-app:$IMAGE_NAME ."
                     dockerLogin()
-                    dockerPush 'phard/the-app:maven-2.0'
+                    dockerPush "phard/the-app:$IMAGE_NAME"
                 }
             }    
           }
