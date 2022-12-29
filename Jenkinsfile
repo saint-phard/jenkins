@@ -46,7 +46,7 @@ pipeline {
         stage('build and push image') {
             steps {
                 script {
-                    buildImage "phard/the-app:$IMAGE_NAME ."
+                    buildImage "phard/the-app:$IMAGE_NAME"
                     dockerLogin()
                     dockerPush "phard/the-app:$IMAGE_NAME"
                 }
