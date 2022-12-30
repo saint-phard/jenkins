@@ -30,6 +30,7 @@ def githubCommit() {
         sh 'git add .'
         sh 'git commit -m "jenkins-build: app version increment"'
         sh 'git push origin HEAD:jenkins-shared-library'
+    }
 }
 
 return this
