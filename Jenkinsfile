@@ -62,7 +62,7 @@ pipeline {
         stage('commit to github') {
             steps {
                 script {
-                    groovy.githubCommit()
+                    githubCommit()
                 }
             }
         }
