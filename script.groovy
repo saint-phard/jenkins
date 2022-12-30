@@ -19,8 +19,8 @@ def deployApp() {
 def githubCommit() {
     echo 'commiting all changes to github to reflect new version changes'
     withCredentials([usernamePassword(credentialsId: 'my-github-credentials', usernameVariable: 'username', passwordVariable: 'password')]) {
-        sh 'git config ---global user.name "jenkins-user"'
-        sh 'git config ---global user.email "jenkins-user@local.com"'
+        sh 'git config --global user.name "jenkins-user"'
+        sh 'git config --global user.email "jenkins-user@local.com"'
 
         sh 'git status'
         sh 'git branch'
