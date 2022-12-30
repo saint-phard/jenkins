@@ -29,6 +29,7 @@ def githubCommit() {
         sh "git remote set-url origin https://${username}:${password}@github.com/saint-phard/maven-docker-jenkins.git"
         sh 'git add .'
         sh 'git commit -m "jenkins-build: app version increment"'
+        sh 'git pull origin HEAD:jenkins-shared-library'
         sh 'git push origin HEAD:jenkins-shared-library'
     }
 }
