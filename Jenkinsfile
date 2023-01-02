@@ -66,9 +66,6 @@ pipeline {
                 }    
           }
         stage('deploy') {
-            environment {
-                
-            }
             steps {
                 script {
                     groovy.deployApp()
