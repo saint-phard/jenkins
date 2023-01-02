@@ -10,7 +10,7 @@ pipeline {
     environment {
         APP_NAME = 'jenkins-maven-app'
         DOCKER_REPO = 'phard/the-app'
-        DOCKER_REPO_SERVER = 'index.docker.io/v1/ '
+        DOCKER_REPO_SERVER = 'index.docker.io/v1/'
         DOCKER_REPO_SECRET = 'docker-repo-key'
         DOCKER_REPO_EMAIL = 'phard911@gmail.com'
     }
@@ -37,10 +37,10 @@ pipeline {
                 }
             }
         }
-        stage('unit test + jacoco plugin') {
+        stage('Unit Tests - JUnit and Jacoco') {
             steps {
                 script {
-                    echo 'running unit test before the application is packaged'
+                    echo 'running Unit Test before the application is packaged'
                     sh 'mvn test'
                 }
             }
@@ -48,6 +48,19 @@ pipeline {
                 always {
                     junit 'target/surefire-reports/TEST-AppText.xml'
                     jacoco execPattern: 'target/jacoco.exec'
+                }
+            }
+        }
+        stage('Mutation Test - PIT') {
+            steps {
+                script {
+                    echo 'running Mutation Test to test the Unit Test'
+                    sh 'mvn org.pitest-maven:mutationCoverage'
+                }
+            }
+            post {
+                always {
+                    pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
                 }
             }
         }
