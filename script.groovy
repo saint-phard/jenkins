@@ -6,14 +6,23 @@ def buildJar() {
 def buildImage() {
     echo 'building the docker image'
     withCredentials([usernamePassword(credentialsId: 'my-dockerhub-credentials', usernameVariable: 'username', passwordVariable: 'password')]) {
-        sh 'docker build -t phard/the-app:${IMAGE_NAME} .'
-        sh "echo $password | docker login -u $username --password-stdin"
-        sh 'docker push phard/the-app:${IMAGE_NAME}'
+        sh 'docker build -t ${DOCKER_REPO}:${IMAGE_NAME} .'
+        sh "echo $password | docker login -u $username --password-stdin ${DOCKER_REPO_SERVER}"
+        sh 'docker push ${DOCKER_REPO}:${IMAGE_NAME}'
     }
 }
 
 def deployApp() {
     echo 'deploying the application'
+    withCredentials([usernamePassword(credentialsId: 'my-dockerhub-credentials', usernameVariable: 'username', passwordVariable: 'password')]) {
+        sh 'envsubst < k8s/deployment.yaml | kubectl apply -f -'
+        sh 'envsubst < k8s/service.yaml | kubectl apply -f -'
+        sh "kubectl create secret docker-registry ${DOCKER_REGISTRY_SECRET} \
+            --docker-server=${DOCKER_REPO_SERVER}\
+            --docker-username=$username \
+            --docker-password=$password \
+            --docker-email=${DOCKER_REPO_EMAIL}"
+    }
 }
 
 def githubCommit() {
