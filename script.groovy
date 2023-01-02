@@ -21,7 +21,7 @@ def deployApp() {
             --docker-server=${DOCKER_REPO_SERVER}\
             --docker-username=$username \
             --docker-password=$password \
-            --docker-email=${DOCKER_REPO_EMAIL}"
+            --docker-email=phard911@gmail.com"
     }
 }
 
