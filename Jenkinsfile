@@ -12,7 +12,7 @@ pipeline {
         DOCKER_REPO = 'phard/the-app'
         DOCKER_REPO_SERVER = 'index.docker.io/v1/ '
         DOCKER_REPO_SECRET = 'docker-repo-key'
-        //DOCKER_REPO_EMAIL = phard911@gmail.com
+        DOCKER_REPO_EMAIL = 'phard911@gmail.com'
     }
 
     stages {
