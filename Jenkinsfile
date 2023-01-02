@@ -55,7 +55,7 @@ pipeline {
             steps {
                 script {
                     echo 'running Mutation Test to test the Unit Test'
-                    sh 'mvn org.pitest-maven:mutationCoverage'
+                    sh 'mvn org.pitest:pitest-maven:mutationCoverage'
                 }
             }
             post {
