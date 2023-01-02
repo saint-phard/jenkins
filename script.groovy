@@ -17,7 +17,7 @@ def deployApp() {
     withCredentials([usernamePassword(credentialsId: 'my-dockerhub-credentials', usernameVariable: 'username', passwordVariable: 'password')]) {
         sh 'envsubst < k8s/deployment.yaml | kubectl apply -f -'
         sh 'envsubst < k8s/service.yaml | kubectl apply -f -'
-        sh "kubectl create secret docker-registry ${DOCKER_REGISTRY_SECRET} \
+        sh "kubectl create secret docker-registry ${DOCKER_REPO_SECRET} \
             --docker-server=${DOCKER_REPO_SERVER}\
             --docker-username=$username \
             --docker-password=$password \
