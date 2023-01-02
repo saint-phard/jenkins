@@ -10,7 +10,7 @@ pipeline {
     environment {
         APP_NAME = jenkins-maven-app
         DOCKER_REPO = phard/the-app
-        DOCKER_REPO_SERVER = https://index.docker.io/v1/ 
+        DOCKER_REPO_SERVER = index.docker.io/v1/ 
         DOCKER_REPO_EMAIL = phard911@gmail.com
         DOCKER_REGISTRY_SECRET = docker-registry-key
     }
