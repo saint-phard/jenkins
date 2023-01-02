@@ -8,10 +8,10 @@ pipeline {
         maven 'maven-3.8.6'
     }
     environment {
-        APP_NAME = jenkins-maven-app
-        DOCKER_REPO = phard/the-app
-        DOCKER_REPO_SERVER = index.docker.io/v1/ 
-        DOCKER_REPO_SECRET=docker-repo-key
+        APP_NAME = 'jenkins-maven-app'
+        DOCKER_REPO = 'phard/the-app'
+        DOCKER_REPO_SERVER = 'index.docker.io/v1/ '
+        DOCKER_REPO_SECRET = 'docker-repo-key'
         //DOCKER_REPO_EMAIL = phard911@gmail.com
     }
 
